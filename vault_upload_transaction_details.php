@@ -28,7 +28,8 @@
                     <!-- <form action="verify-login.php" method="post"> -->
 
                         <div id="output" class="row">
-                            <div class="col-md-10 text-center">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
 
                                 <?php
 
@@ -104,7 +105,7 @@
 
                                 ?>
                             </div>
-
+                            <div class="col-md-1"></div>
                         </div>
 
                     <!-- </form> -->
