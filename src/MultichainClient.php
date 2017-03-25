@@ -821,31 +821,31 @@ class MultichainClient
     }
 
 
-    public function listStreamItems($streamID, $verbose = false, $count = 10, $start = -10, $localOrdering = false)
+    public function listStreamItems($streamID, $verbose = true, $count = 10, $start = -10, $localOrdering = false)
     {
         return $this->jsonRPCClient->execute("liststreamitems", array($streamID, $verbose, $count, $start, $localOrdering));
     }
 
 
-    public function listStreamKeys($streamID, $key = "*", $verbose = false, $count = 10, $start = -10, $localOrdering = false)
+    public function listStreamKeys($streamID, $key = "*", $verbose = true, $count = 10, $start = -10, $localOrdering = false)
     {
         return $this->jsonRPCClient->execute("liststreamkeys", array($streamID, $key, $verbose, $count, $start, $localOrdering));
     }
 
 
-    public function listStreamKeyItems($streamID, $key, $verbose = false, $count = 10, $start = -10, $localOrdering = false)
+    public function listStreamKeyItems($streamID, $key, $verbose = true, $count = 10, $start = -10, $localOrdering = false)
     {
         return $this->jsonRPCClient->execute("liststreamkeyitems", array($streamID, $key, $verbose, $count, $start, $localOrdering));
     }
 
 
-    public function listStreamPublishers($streamID, $address = "*", $verbose = false, $count = 10, $start = -10, $localOrdering = false)
+    public function listStreamPublishers($streamID, $address = "*", $verbose = true, $count = 10, $start = -10, $localOrdering = false)
     {
         return $this->jsonRPCClient->execute("liststreampublishers", array($streamID, $address, $verbose, $count, $start, $localOrdering));
     }
 
 
-    public function listStreamPublisherItems($streamID, $address, $verbose = false, $count = 10, $start = -10, $localOrdering = false)
+    public function listStreamPublisherItems($streamID, $address, $verbose = true, $count = 10, $start = -10, $localOrdering = false)
     {
         return $this->jsonRPCClient->execute("liststreampublisheritems", array($streamID, $address, $verbose, $count, $start, $localOrdering));
     }

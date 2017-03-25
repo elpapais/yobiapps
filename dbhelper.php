@@ -1,5 +1,8 @@
 <?php
-
+	use src\multichain\MultichainClient as MultichainClient;
+	use src\multichain\MultichainHelper as MultichainHelper;
+	include_once 'src/MultichainHelper.php';
+	include_once 'src/MultichainClient.php';
 	include_once 'MCHelper.php';
 	include_once 'config.php';
 	include_once 'resources.php';
@@ -12,6 +15,8 @@
 	class DBHelper
 	{
 		
+		//protected $mcTemp;
+		protected $mcObj;
 		protected $mcHelper;
 		protected $sessionId;
 		protected $server;
@@ -21,8 +26,12 @@
 		{
 			$this->sessionId = $sessionId;
 			$this->server = $server;
-			$this->mcHelper = new MCHelper();
-			$this->mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
+
+			// $this->mcTemp = new MCHelper();
+			// $this->mcTemp->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
+
+			$this->mcObj = new MultichainClient("http://".MultichainParams::HOST_NAME.":".MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD, 30);
+			$this->mcHelper = new MultichainHelper($this->mcObj);
 			$this->adminAddress = $this->getAdminAddress();
 		}
 
@@ -31,10 +40,10 @@
 		 */
 		public function getAdminAddress()
 		{
-			$permissionsInfo = $this->mcHelper->ListPermissions("admin");
+			$permissionsInfo = $this->mcObj->setDebug(true)->listPermissions("admin");
 
 			foreach ($permissionsInfo as $permissionItem) {
-				$validationInfo = $this->mcHelper->ValidateAddress($permissionItem['address']);
+				$validationInfo = $this->mcObj->setDebug(true)->validateAddress($permissionItem['address']);
 				if ($validationInfo['ismine']) {
 					return $permissionItem['address'];
 				}
@@ -49,7 +58,7 @@
 		public function isAddressValid($address)
 		{
 			
-			$addressInfo = $this->mcHelper->ValidateAddress($address);
+			$addressInfo = $this->mcObj->setDebug(true)->validateAddress($address);
 
 			return $addressInfo['isvalid'];
 		}
@@ -60,7 +69,7 @@
 		public function userExists($userName)
 		{
 			
-			$userRecords = $this->mcHelper->ListStreamKeyItems(MultichainParams::USER_STREAMS['USERS_DETAILS'], $userName, true, 1, -1, true);
+			$userRecords = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::USER_STREAMS['USERS_DETAILS'], $userName, true, 1, -1, true);
 
 			if(count($userRecords)>0)
 	        {
@@ -100,7 +109,7 @@
 					Literals::USER_CREDENTIALS_FIELD_NAMES['PASSWORD_HASH'] => password_hash($password, PASSWORD_BCRYPT)
 				);			
 
-			$txId = $this->mcHelper->PublishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_CREDENTIALS'], $userName, bin2hex(json_encode($userCredentialsArray)));
+			$txId = $this->mcObj->setDebug(true)->publishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_CREDENTIALS'], $userName, bin2hex(json_encode($userCredentialsArray)));
 		}
 
 
@@ -117,7 +126,7 @@
 					Literals::USER_DETAILS_FIELD_NAMES['COUNTRY'] => $country
 				);		
 
-			$txId = $this->mcHelper->PublishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_DETAILS'], $userName, bin2hex(json_encode($userDetailsArray)));
+			$txId = $this->mcObj->setDebug(true)->publishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_DETAILS'], $userName, bin2hex(json_encode($userDetailsArray)));
 		}
 
 
@@ -128,14 +137,14 @@
 		{
 			if ($this->userExists($userName))
 			{
-				$address = $this->mcHelper->GetNewAddress();
+				$address = $this->mcObj->setDebug(true)->getNewAddress();
 
 				$userDetailsArray = array(
 						Literals::USER_ADDRESS_FIELD_NAMES['USER_NAME'] => $userName,
 						Literals::USER_ADDRESS_FIELD_NAMES['ADDRESS'] => $address
 					);		
 
-				$txId = $this->mcHelper->PublishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_ADDRESSES'], $userName, bin2hex(json_encode($userDetailsArray)));
+				$txId = $this->mcObj->setDebug(true)->publishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_ADDRESSES'], $userName, bin2hex(json_encode($userDetailsArray)));
 				
 				return $address;
 			}
@@ -160,7 +169,7 @@
 						Literals::USER_SESSION_FIELD_NAMES['SESSION_IP'] => $this->server['REMOTE_ADDR']
 					);		
 
-				$txId = $this->mcHelper->PublishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_SESSION'], $userName, bin2hex(json_encode($userSessionArray)));
+				$txId = $this->mcObj->setDebug(true)->publishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_SESSION'], $userName, bin2hex(json_encode($userSessionArray)));
 				
 				return $txId;
 			}
@@ -188,7 +197,7 @@
 						throw new Exception("Invalid Address!!");
 					}
 
-					$txId = $this->mcHelper->GrantFrom($this->getAdminAddress(), $address, $permissions);
+					$txId = $this->mcObj->setDebug(true)->grantFrom($this->getAdminAddress(), $address, $permissions);
 
 				}
 				else
@@ -220,7 +229,7 @@
 						throw new Exception("Invalid Address!!");
 					}
 
-					$txId = $this->mcHelper->SendFromAddress($this->getAdminAddress(), $address, $qty, IndiacoinParams::ASSET_NAME);
+					$txId = $this->mcObj->setDebug(true)->sendFromAddress($this->getAdminAddress(), $address,  array(IndiacoinParams::ASSET_NAME => $qty));
 				}
 				else
 				{
@@ -249,7 +258,7 @@
 						Literals::USER_ACCOUNT_STATUS_FIELD_NAMES['ACTIVATION_CODE'] => $activationCode
 					);		
 
-				$txId = $this->mcHelper->PublishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_ACCOUNTS_STATUSES'], $userName, bin2hex(json_encode($userActivationDetailsArray)));
+				$txId = $this->mcObj->setDebug(true)->publishFrom($this->getAdminAddress(), MultichainParams::USER_STREAMS['USERS_ACCOUNTS_STATUSES'], $userName, bin2hex(json_encode($userActivationDetailsArray)));
 
 				return true;
 			}
@@ -283,9 +292,9 @@
 						Literals::CONTRACT_INVITED_SIGNEES_FIELD_NAMES['CONTRACT_ID'] => $contractID
 					);		
 
-				$txId1 = $this->mcHelper->PublishFrom($_SESSION['address'], MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $contractID.Literals::STREAM_KEY_DELIMITER.$inviteeAddress, bin2hex(json_encode($inviteeDetailsArray1)));
+				$txId1 = $this->mcObj->setDebug(true)->publishFrom($_SESSION['address'], MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $contractID.Literals::STREAM_KEY_DELIMITER.$inviteeAddress, bin2hex(json_encode($inviteeDetailsArray1)));
 
-				$txId2 = $this->mcHelper->PublishFrom($_SESSION['address'], MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $inviteeAddress, bin2hex(json_encode($inviteeDetailsArray2)));
+				$txId2 = $this->mcObj->setDebug(true)->publishFrom($_SESSION['address'], MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $inviteeAddress, bin2hex(json_encode($inviteeDetailsArray2)));
 
 				return true;
 			}
@@ -306,7 +315,7 @@
 			{
 				$userAddress = $this->getUserAddress($userID);
 				
-				$contractDetailsStreamItems = $this->mcHelper->ListStreamPublisherItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $userAddress, true, 500, -500, true);
+				$contractDetailsStreamItems = $this->mcObj->setDebug(true)->listStreamPublisherItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $userAddress, true, 500, -500, true);
 
 				foreach ($contractDetailsStreamItems as $contractDetailsStreamItem)
 				{
@@ -336,7 +345,7 @@
 				$userAddress = $this->getUserAddress($userID);
 				$contractsDetails = array();
 
-				$contractDetailsStreamItems = $this->mcHelper->ListStreamPublisherItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $userAddress, true, 500, -500, true);
+				$contractDetailsStreamItems = $this->mcObj->setDebug(true)->listStreamPublisherItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $userAddress, true, 500, -500, true);
 
 				foreach ($contractDetailsStreamItems as $contractDetailsStreamItem)
 				{
@@ -348,7 +357,7 @@
 					else {
 						$vOut = $contractDetailsStreamItem['vout'];
 						$txId = $contractDetailsStreamItem['txid'];
-						$dataHex = $this->mcHelper->GetTxOutData($txId, $vOut);
+						$dataHex = $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut);
 					}
 
 					$contractDetailsStreamItemDataArr = json_decode(hex2bin($dataHex), true);
@@ -377,7 +386,7 @@
 				//$userAddress = $this->getUserAddress($userID);
 				$pendingContractsDetails = array();
 
-				$invitedContractsStreamItems = $this->mcHelper->ListStreamKeyItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $userAddress, true, 500, -500, true);
+				$invitedContractsStreamItems = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $userAddress, true, 500, -500, true);
 
 				foreach ($invitedContractsStreamItems as $invitedContractsStreamItem)
 				{
@@ -388,7 +397,7 @@
 					else {
 						$vOut = $invitedContractsStreamItem['vout'];
 						$txId = $invitedContractsStreamItem['txid'];
-						$dataHex = $this->mcHelper->GetTxOutData($txId, $vOut);
+						$dataHex = $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut);
 					}
 
 					$invitedContractsStreamItemDataArr = json_decode(hex2bin($dataHex), true);
@@ -416,7 +425,7 @@
 		{
 			try
 			{	
-				$contracts = $this->mcHelper->ListStreamKeys(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $contractID, true, 1, -1, true);
+				$contracts = $this->mcObj->setDebug(true)->listStreamKeys(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $contractID, true, 1, -1, true);
 
 				if ($contracts[0]['items'] > 0) {
 					return true;
@@ -438,7 +447,7 @@
 		{
 			try
 			{
-				$invitedSignees = $this->mcHelper->ListStreamKeys(MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $contractID.Literals::STREAM_KEY_DELIMITER.$userAddress, true, 1, -1, true);
+				$invitedSignees = $this->mcObj->setDebug(true)->listStreamKeys(MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES'], $contractID.Literals::STREAM_KEY_DELIMITER.$userAddress, true, 1, -1, true);
 
 				if ($invitedSignees[0]['items'] > 0) {
 					return true;
@@ -460,7 +469,7 @@
 		{
 			try
 			{
-				$signees = $this->mcHelper->ListStreamKeys(MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractID.Literals::STREAM_KEY_DELIMITER.$userAddress, true, 1, -1, true);
+				$signees = $this->mcObj->setDebug(true)->listStreamKeys(MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractID.Literals::STREAM_KEY_DELIMITER.$userAddress, true, 1, -1, true);
 
 				if ($signees[0]['items'] > 0) {
 					return true;
@@ -482,7 +491,7 @@
 		{
 			try
 			{
-				$contracts = $this->mcHelper->ListStreamKeyItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $contractID, true, 1, -1, true);
+				$contracts = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $contractID, true, 1, -1, true);
 
 				$contract = $contracts[0];
 
@@ -492,7 +501,7 @@
 				else {
 					$vOut = $contract['vout'];
 					$txId = $contract['txid'];
-					$dataHex = $this->mcHelper->GetTxOutData($txId, $vOut);
+					$dataHex = $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut);
 				}
 
 				$contractDetails = json_decode(hex2bin($dataHex), true);
@@ -511,7 +520,7 @@
 		 */
 		public function getUserDetails($userName)
 		{
-			$userRecords = $this->mcHelper->ListStreamKeyItems(MultichainParams::USER_STREAMS['USERS_DETAILS'], $userName, true, 1, -1, true);
+			$userRecords = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::USER_STREAMS['USERS_DETAILS'], $userName, true, 1, -1, true);
 
 			if(count($userRecords)>0)
 	        {
@@ -519,7 +528,7 @@
 	                $contentHex = $userRecords[0]['data'];
 	            }
 	            else{
-	                $contentHex = $mcHelper->GetTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
+	                $contentHex = $mcObj->setDebug(true)->getTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
 	            }
 
 	            $contentArr = json_decode(hex2bin($contentHex), true);
@@ -538,7 +547,7 @@
 		public function getUserPublicKeyFromUserName($userID)
 		{
 			$userAddress = $this->getUserAddress($userID);
-			$validateAddressResponse = $this->mcHelper->ValidateAddress($userAddress);
+			$validateAddressResponse = $this->mcObj->setDebug(true)->validateAddress($userAddress);
 			return $validateAddressResponse['pubkey'];
 		}
 
@@ -548,7 +557,7 @@
 		 */
 		public function getUserPublicKeyFromUserAddress($userAddress)
 		{
-			$validateAddressResponse = $this->mcHelper->ValidateAddress($userAddress);
+			$validateAddressResponse = $this->mcObj->setDebug(true)->validateAddress($userAddress);
 			return $validateAddressResponse['pubkey'];
 		}
 
@@ -560,7 +569,7 @@
 		{
 			try
 			{
-				$userRecords = $this->mcHelper->ListStreamKeyItems(MultichainParams::USER_STREAMS['USERS_CREDENTIALS'], $userName, true, 1, -1, true);
+				$userRecords = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::USER_STREAMS['USERS_CREDENTIALS'], $userName, true, 1, -1, true);
 
 				if(count($userRecords)>0)
 		        {
@@ -568,7 +577,7 @@
 		                $contentHex = $userRecords[0]['data'];
 		            }
 		            else{
-		                $contentHex = $mcHelper->GetTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
+		                $contentHex = $this->mcObj->setDebug(true)->getTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
 		            }
 
 		            $contentArr = json_decode(hex2bin($contentHex), true);
@@ -594,7 +603,7 @@
 		{
 			try
 			{
-				$userRecords = $this->mcHelper->ListStreamKeyItems(MultichainParams::USER_STREAMS['USERS_AUTH_CODES'], $userName, true, 1, -1, true);
+				$userRecords = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::USER_STREAMS['USERS_AUTH_CODES'], $userName, true, 1, -1, true);
 
 				if(count($userRecords)>0)
 		        {
@@ -602,7 +611,7 @@
 		                $contentHex = $userRecords[0]['data'];
 		            }
 		            else{
-		                $contentHex = $mcHelper->GetTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
+		                $contentHex = $this->mcObj->setDebug(true)->getTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
 		            }
 
 		            $contentArr = json_decode(hex2bin($contentHex), true);
@@ -628,7 +637,7 @@
 		{
 			try
 			{
-				$userRecords = $this->mcHelper->ListStreamKeyItems(MultichainParams::USER_STREAMS['USERS_ADDRESSES'], $userName, true, 1, -1, true);
+				$userRecords = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::USER_STREAMS['USERS_ADDRESSES'], $userName, true, 1, -1, true);
 
 				if(count($userRecords)>0)
 		        {
@@ -636,7 +645,7 @@
 		                $contentHex = $userRecords[0]['data'];
 		            }
 		            else{
-		                $contentHex = $mcHelper->GetTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
+		                $contentHex = $this->mcObj->setDebug(true)->getTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
 		            }
 
 		            $contentArr = json_decode(hex2bin($contentHex), true);
@@ -660,7 +669,7 @@
 		 */
 		public function getUserSessionDetails($userName)
 		{
-			$userRecords = $this->mcHelper->ListStreamKeyItems(MultichainParams::USER_STREAMS['USERS_SESSION'], $userName, true, 1, -1, true);
+			$userRecords = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::USER_STREAMS['USERS_SESSION'], $userName, true, 1, -1, true);
 
 			if(count($userRecords)>0)
 	        {
@@ -668,7 +677,7 @@
 	                $contentHex = $userRecords[0]['data'];
 	            }
 	            else{
-	                $contentHex = $mcHelper->GetTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
+	                $contentHex = $this->mcObj->setDebug(true)->getTxOutData($userRecords[0]['data']['txid'], $userRecords[0]['data']['vout']);
 	            }
 
 	            $contentArr = json_decode(hex2bin($contentHex), true);
