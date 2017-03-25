@@ -24,8 +24,8 @@
 
 		public static function init(){
 	        self::$hostName = $_SERVER['SERVER_ADDR'];
-			self::$PORT = "8080";
-			self::$CHAIN_NAME = "Primechain";
+			self::$PORT = "2750";
+			self::$CHAIN_NAME = "Yobichain";
 			self::$TX_URL_PREFIX = "http://".self::$hostName.":".self::$PORT."/".self::$CHAIN_NAME."/tx/";
 			self::$BLOCK_URL_PREFIX = "http://".self::$hostName.":".self::$PORT."/".self::$CHAIN_NAME."/block/";
 			self::$ADDRESS_URL_PREFIX = "http://".self::$hostName.":".self::$PORT."/".self::$CHAIN_NAME."/address/";
@@ -36,12 +36,12 @@
 
 
 	/**
-	* 
+	* Web server parameters
 	*/
 	class WebServerParams
 	{		
 		public static $hostName;				// IP address or Host Name of the Web Server 
-		const PRIMECHAIN_ROOT_DIR = "primechain";	// Root directory of Primechain
+		const PRIMECHAIN_ROOT_DIR = "yobiapps";	// Root directory of Primechain
 
 		public static function init(){
 	        self::$hostName = $_SERVER['SERVER_ADDR'];
@@ -51,7 +51,7 @@
 
 
 	/**
-	* 
+	* MULTICHAIN PARAMETERS
 	*/
 	class MultichainParams
 	{

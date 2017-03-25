@@ -126,4 +126,4 @@
     </div>
 </section>
 
-<?php include ("bottom-logged-in.php");?>
+<?php include ("footer.php");?>

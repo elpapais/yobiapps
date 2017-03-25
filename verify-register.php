@@ -1,7 +1,7 @@
 <?php
 	ob_start();
 	error_reporting(E_ALL);
-	include_once ("header-loggedin.php");
+	include_once ("header.php");
 	require_once("helperFunctions.php");
 	require_once("dbhelper.php");
 	include_once "config.php";
@@ -85,5 +85,5 @@
 
 <?php
 	ob_end_flush();
-	include ("bottom.php");
+	include ("footer.php");
 ?>

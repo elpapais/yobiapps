@@ -2,7 +2,7 @@
 	session_start();
 	error_reporting(E_ALL);
 	ob_start();
-	include_once ("top.php");
+	include_once ("header.php");
 	require_once("config.php");
 	require_once("helperFunctions.php");
 	require_once("dbhelper.php");
@@ -51,6 +51,6 @@
 		echo "Error: " . $ex->getMessage();
 	}
 
-	include ("bottom.php");
+	include ("footer.php");
 	ob_end_flush();
 ?>
