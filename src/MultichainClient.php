@@ -7,7 +7,7 @@ use JsonRPC\Client as JsonRPCClient;
 /**
  * Class MultichainClient
  *
- * @package be\kunstmaan\multichain
+ * @package
  * @link http://www.multichain.com/developers/json-rpc-api/
  */
 class MultichainClient
@@ -26,7 +26,7 @@ class MultichainClient
      * @var array
      */
     private $headers = array(
-        'User-Agent: Unofficial Multichain PHP Client <https://github.com/kunstmaan/libphp-multichain>',
+        //'User-Agent: Unofficial Multichain PHP Client <https://github.com/kunstmaan/libphp-multichain>',
     );
 
     /**
