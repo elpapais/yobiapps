@@ -41,7 +41,7 @@
                 <div class="panel-body">
                     <!-- <form action="verify-login.php" method="post"> -->
 
-                        <div class="form-group appear-animation fadeIn appear-animation-visible">
+                        <div class="form-group">
                             <label class="col-sm-3 control-label"><strong>Transaction ID </strong><span class="required">*</span></label>
                             <div class="col-sm-9">
                                     <!-- <input type="text" data-plugin-datepicker class="form-control"> -->
@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="row appear-animation fadeIn appear-animation-visible">
+                        <div class="row">
                             <div class="col-sm-3 control-label">
                                 <div class="col-sm-11 text-left">
                                     <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary" onclick="getAssetDetails(this, txid, output)">View</button>
@@ -58,7 +58,7 @@
                             </div>
                         </div><br/>
 
-                        <div id="output" class="row appear-animation fadeIn appear-animation-visible">
+                        <div id="output" class="row">
 
                         </div>
 
@@ -80,7 +80,7 @@
                     <h2 class="panel-title">Recent Transactions</h2>
                 </header>
                 <div class="panel-body">
-                        <div id="output_recent" class="row appear-animation fadeIn appear-animation-visible">
+                        <div id="output_recent" class="row">
                         </div>
                 </div>
             </section>
