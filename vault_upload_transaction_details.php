@@ -2,29 +2,16 @@
     session_start();
     ob_start();
     require_once('check-login.php');
-    include ("top-logged-in.php"); 
+    include ("header-logged-in.php"); 
 ?>
                         
 
 <script type="text/javascript" src="js/vault.js"></script>
 
-<section role="main" class="content-body">
+<div class="container theme-showcase" role="main">
 
     <header class="page-header">
         <h2>PrimeVault</h2>
-    
-        <div class="right-wrapper pull-right">
-            <ol class="breadcrumbs">
-                <li>
-                    <a href="index.php">
-                        <i class="fa fa-home"></i>
-                    </a>
-                </li>
-                <li><span>PrimeVault - Transaction Details</span></li>
-            </ol>
-    
-            <a class="sidebar-right-toggle"><i class="fa fa-chevron-left"></i></a><!--  data-open="sidebar-right" -->
-        </div>
     </header>
     <div class="row">
         <div class="col-md-10">

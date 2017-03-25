@@ -1,7 +1,7 @@
 <?php
     session_start();
     ob_start();
-    //require_once('check-login.php');
+    require_once('check-login.php');
     include_once 'header-logged-in.php';
 ?>
 

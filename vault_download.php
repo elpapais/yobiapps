@@ -1,7 +1,7 @@
 <?php
     session_start();
     ob_start();
-    //require_once('check-login.php');
+    require_once('check-login.php');
     include_once 'header-logged-in.php';
 ?>
 
@@ -23,6 +23,9 @@
 
 <div class="container theme-showcase" role="main">
 
+    <header class="page-header">
+        <h2>PrimeVault</h2>
+    </header>
 
     <div class="row">
         <div class="col-md-10">
