@@ -21,11 +21,11 @@
 			if (isset($_GET['v_n']))
 			{
 				$vOut_n = intval($_GET['v_n']);
-				$dataHex = $mcHelper->testGetTxOutData($txId, $vOut_n);
+				$dataHex = $mcHelper->GetTxOutData($txId, $vOut_n);
 			}
 			else
 			{
-				$transaction = $mcHelper->testGetAddressTransaction($uploader_address, $txId);
+				$transaction = $mcHelper->GetAddressTransaction($uploader_address, $txId);
 				$dataHex = $transaction['data'][0];
 			}
 

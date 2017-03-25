@@ -36,7 +36,7 @@
 			unlink($target_file);
 			$mcHelper = new MCHelper();
 			$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
-			$txId = $mcHelper->testPublishFrom($uploader_address, MultichainParams::VAULT_STREAMS['DATA'], $streamKey, $contentHex);	/// Publisher address and stream name to be modified
+			$txId = $mcHelper->PublishFrom($uploader_address, MultichainParams::VAULT_STREAMS['DATA'], $streamKey, $contentHex);	/// Publisher address and stream name to be modified
 
 			echo "<b><font color='green'>Transaction Successful.<br/>"."Your Transaction ID is </font></b>"."<a href='vault_upload_transaction_details.php?txid=".$txId."'>".$txId."</a>";
 		}

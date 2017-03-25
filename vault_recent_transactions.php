@@ -8,7 +8,7 @@
 
 	$mcHelper = new MCHelper();
 	$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
-	$items = $mcHelper->testListStreamPublisherItems(MultichainParams::VAULT_STREAMS['DATA'], $_SESSION['address'], true, 20 , -20);
+	$items = $mcHelper->ListStreamPublisherItems(MultichainParams::VAULT_STREAMS['DATA'], $_SESSION['address'], true, 20 , -20);
 	$items = array_reverse($items);
 
 	echo "<table class='table table-bordered table-hover'>";
