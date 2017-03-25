@@ -57,12 +57,11 @@
 										</span>
 									</span>
 								</div>
-							</div>
+							</div><br>
 
 							<div class="row">
 								<div class="col-sm-12 text-center">
-									<button type="submit" class="btn btn-primary hidden-xs">Sign In</button>
-									<!-- <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button> -->
+									<input type="submit" class="btn btn-primary" value="Sign In">
 								</div>
 							</div><br/>
 

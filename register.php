@@ -45,51 +45,19 @@
 							</div><br/>
 
 							<div>
-								<label for="email">E-mail Address <span class="required">*</span></label>
-								<input id="email" name="email" type="email" class="form-control input-lg" required="true" />
-							</div><br/>
-
-
-							<div>
-								<label for="org">Organization <span class="required">*</span></label>
-								<input id="org" name="org" type="text" class="form-control input-lg" required="true" />
-							</div><br/>
-
-
-							<div>
-								<label for="country">Country <span class="required">*</span></label>
-								<select id="country" name="country" data-plugin-selectTwo class="form-control populate">
-									<?php
-										foreach (Literals::COUNTRY_DESC as $code => $desc) {
-											echo "<option value='".$code."' ".(($code=="IN")?"selected":"").">".$desc."</option>";
-										}
-									?>
-									<option></option>
-								</select>
-							</div><br/>
-
-							<!-- <div class="form-group mb-none">
-								<div class="row">
-									<div class="col-sm-6 mb-lg">
-										<label>Password</label>
-										<input name="pwd" type="password" class="form-control input-lg" />
-									</div>
-									<div class="col-sm-6 mb-lg">
-										<label>Password Confirmation</label>
-										<input name="pwd_confirm" type="password" class="form-control input-lg" />
-									</div>
-								</div>
-							</div> -->
+								<label for="password">Password <span class="required">*</span></label>
+								<input id="password" name="password" type="password" class="form-control input-lg" required="true" />
+							</div><br/><br/>
 
 							<div class="row">
-								<div class="col-sm-8">
+								<!-- <div class="col-sm-8">
 									<div class="checkbox-custom checkbox-default">
 										<input id="AgreeTerms" name="agreeterms" type="checkbox" required="true" />
 										<label for="AgreeTerms">I agree with <a href="Primechain Software.pdf">terms of use</a> <span class="required">*</span></label>
 									</div>
-								</div>
-								<div class="col-sm-4 text-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Sign Up</button>
+								</div> -->
+								<div class="col-sm-12 text-center">
+									<input type="submit" class="btn btn-primary" value="Sign Up">
 									<!-- <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign Up</button> -->
 								</div>
 							</div><br/>
