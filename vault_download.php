@@ -33,18 +33,15 @@
                 <header class="panel-heading">
                     <div class="panel-actions">
                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <!-- <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a> -->
                     </div>
 
                     <h2 class="panel-title">Download document</h2>
                 </header>
                 <div class="panel-body">
-                    <!-- <form action="verify-login.php" method="post"> -->
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><strong>Transaction ID </strong><span class="required">*</span></label>
                             <div class="col-sm-9">
-                                    <!-- <input type="text" data-plugin-datepicker class="form-control"> -->
                                     <input class="form-control" type="text" id="txid" name="txid" value="<?php echo (isset($_GET['txid'])) ? $_GET['txid'] : '' ?>" required />
                             </div>
                         </div>
@@ -52,17 +49,20 @@
                         <div class="row">
                             <div class="col-sm-3 control-label">
                                 <div class="col-sm-11 text-left">
-                                    <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary" onclick="getAssetDetails(this, txid, output)">View</button>
-                                    <!-- <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button> -->
+                                    <button class="mb-xs mt-xs mr-xs btn btn-primary" onclick="getAssetDetails(this, txid, output)">View</button>
                                 </div>
                             </div>
                         </div><br/>
 
-                        <div id="output" class="row">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            
+                            <!-- Output is printed in here -->
+                            <div id="output" class="col-md-10">
+                            </div>
 
+                            <div class="col-md-1"></div>
                         </div>
-
-                    <!-- </form> -->
                 </div>
             </section>
         </div>

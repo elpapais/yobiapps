@@ -55,10 +55,9 @@
 
                         <div class="form-group">
                             <div class="col-md-4">
-                                <!-- <button id="singlebutton" name="singlebutton" class="btn btn-primary">Upload</button> -->
                                 <input type="reset" class="mb-xs mt-xs mr-xs btn btn-primary" onclick="uploadFile(dou, file, desc, this, output);" value="Upload">
                             </div>
-                        </div>
+                        </div><br/><br/>
 
                         <div class="progress light m-md" style="width: 50%" hidden="true">
                             <label id="progressLabel" for="progress"></label>
