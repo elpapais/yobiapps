@@ -1,6 +1,6 @@
 <?php
-use src\MultichainClient as MultichainClient;
-use src\MultichainHelper as MultichainHelper;
+use src\multichain\MultichainClient as MultichainClient;
+use src\multichain\MultichainHelper as MultichainHelper;
 include_once 'src/MultichainHelper.php';
 include_once 'src/MultichainClient.php';
 
