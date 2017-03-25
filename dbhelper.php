@@ -3,7 +3,6 @@
 	use src\multichain\MultichainHelper as MultichainHelper;
 	include_once 'src/MultichainHelper.php';
 	include_once 'src/MultichainClient.php';
-	include_once 'MCHelper.php';
 	include_once 'config.php';
 	include_once 'resources.php';
 	include_once 'helperFunctions.php';
@@ -13,9 +12,7 @@
 	* 
 	*/
 	class DBHelper
-	{
-		
-		//protected $mcTemp;
+	{		
 		protected $mcObj;
 		protected $mcHelper;
 		protected $sessionId;
