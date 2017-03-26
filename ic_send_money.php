@@ -41,7 +41,6 @@
     </div><br/>
 
     <div class="row">
-        <div class="col-md-1"></div>
         <div class="col-md-10">
             <section class="panel panel-primary">
                 <header class="panel-heading">
@@ -88,7 +87,7 @@
             </section>
         </div>
 
-        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
         
     </div>
 
