@@ -318,7 +318,7 @@
 		$printDetails .= "<th>S.No.</th>";
 		$printDetails .= "<th>Sender</th>";
 		$printDetails .= "<th>Recipient</th>";
-		$printDetails .= "<th>Amount<br/>(in Indiacoins)</th>";
+		$printDetails .= "<th>Amount<br/>(in Yobicoins)</th>";
 		$printDetails .= "<th>Message</th>";
 		$printDetails .= "<th>Confirmations</th>";
 		$printDetails .= "<th>Time</th>";

@@ -53,7 +53,7 @@
 			
 
 			// Sending Yobicoin to user
-			$dbHelper->sendInitIndiacoins($userName);
+			$dbHelper->sendInitYobicoins($userName);
 
 			echo "<p class='lead'><b><font color='blue'>Account registration successful. Please login to continue.</font></b></p>";
 		}

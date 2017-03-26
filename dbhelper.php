@@ -309,7 +309,7 @@
 		/**
 		 *  Send Yobicoins to user
 		 */
-		public function sendInitIndiacoins($userName, $qty=AssetParams::INIT_QTY)
+		public function sendInitYobicoins($userName, $qty=AssetParams::INIT_QTY)
 		{
 			try
 			{
