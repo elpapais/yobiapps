@@ -34,11 +34,11 @@
                             echo "<input type='hidden' id='hWalletAddress' value='".$address."' />";
                         ?>
 
-                        <div id="divloader" class="row appear-animation fadeIn appear-animation-visible"></div>
+                        <div id="divloader" class="row"></div>
                         
                         <div class="row">
                             <!-- <div class="col-md-1"></div> -->
-                            <div id="divoutput" class="col-md-12 appear-animation fadeIn appear-animation-visible"></div>
+                            <div id="divoutput" class="col-md-12"></div>
                             <!-- <div class="col-md-1"></div> -->
                         </div>
                 </div>
