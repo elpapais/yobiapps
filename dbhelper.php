@@ -343,7 +343,7 @@
 		{
 			try 
 			{
-				return $this->mcObj->setDebug(true)->sendWithMetadataFrom($fromAddress, $toAddress, array($assetName => $units), bin2hex($metadata));
+				return $this->mcObj->setDebug(true)->sendWithMetadataFrom($fromAddress, $toAddress, array($assetName => $units), $metadata);
 				
 			}
 			catch (Exception $e)
