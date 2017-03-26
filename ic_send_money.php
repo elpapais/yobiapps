@@ -41,7 +41,7 @@
 
     <div class="row">
         <div class="col-md-10">
-            <section class="panel panel-tertiary">
+            <section class="panel panel-primary">
                 <header class="panel-heading">
                     <div class="panel-actions">
                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
