@@ -87,7 +87,7 @@
                     throw new Exception("Amount cannot be zero or negative.", 1);                        
                 }
 
-                $txId = $dbHelper->sendWithMetadataFrom($userAddress, $toAddress, AssetParams::ASSET_NAME, $units, bin2hex($metadata));
+                $txId = $dbHelper->sendAssetWithMessage($userAddress, $toAddress, AssetParams::ASSET_NAME, $units, bin2hex($metadata));
 
                 echo "<strong><font color='green'>"."Transaction successful.</font> <br/><font color='green'>Transaction ID :</font><br/>"."<a href='".ExplorerParams::$TX_URL_PREFIX.$txId."' target='_new'>$txId</a>"."<br/><font color='green'>Message Sent : </font>".$metadata."<br/><font color='green'>".strval(number_format($units, 2))."</font> Yobicoins transferred"."</strong>";
             }
