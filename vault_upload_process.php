@@ -4,7 +4,7 @@
     require_once('check-login.php');
 	include_once "config.php";
 	include_once "resources.php";
-	include_once "MCHelper.php";
+	include_once "dbhelper.php";
 
 	try
 	{
@@ -34,9 +34,9 @@
 			
 			$streamKey = hash_file('sha256', $target_file);
 			unlink($target_file);
-			$mcHelper = new MCHelper();
-			$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
-			$txId = $mcHelper->PublishFrom($uploader_address, MultichainParams::VAULT_STREAMS['DATA'], $streamKey, $contentHex);	/// Publisher address and stream name to be modified
+
+			$dbHelper = new DBHelper();
+			$txId = $dbHelper->uploadDocumentToVault($uploader_address, $streamKey, $contentHex);	/// Publisher address and stream name to be modified
 
 			echo "<b><font color='green'>Transaction Successful.<br/>"."Your Transaction ID is </font></b>"."<a href='vault_upload_transaction_details.php?txid=".$txId."'>".$txId."</a>";
 		}

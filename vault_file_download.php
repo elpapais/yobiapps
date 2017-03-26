@@ -2,7 +2,7 @@
 	session_start();
     ob_start();
     require_once('check-login.php');
-	require_once('MCHelper.php');
+	require_once('dbhelper.php');
 	require_once('resources.php');
 	require_once('helperFunctions.php');
     require_once('config.php');
@@ -14,20 +14,20 @@
 			
 			$txId = $_GET['txid'];
 			$uploader_address = $_SESSION['address'];
-
-			$mcHelper = new MCHelper();
-			$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
+			$dbHelper = new DBHelper();
 
 			if (isset($_GET['v_n']))
 			{
 				$vOut_n = intval($_GET['v_n']);
-				$dataHex = $mcHelper->GetTxOutData($txId, $vOut_n);
+				$dataHex = $dbHelper->getTransactionMetadata($txId, $vOut_n);
 			}
 			else
 			{
-				$transaction = $mcHelper->GetAddressTransaction($uploader_address, $txId);
-				$dataHex = $transaction['data'][0];
+				$transaction = $dbHelper->getAddressTransaction($uploader_address, $txId);
+				$dataHex = $dbHelper->getDataFromDataItem($transaction['data'][0]);
 			}
+
+
 
 			$dataArr = json_decode(hex2bin($dataHex));
 			$fileContentHex = $dataArr->file_hex;

@@ -6,9 +6,8 @@
 	include_once "resources.php";
 	include_once "MCHelper.php";
 
-	$mcHelper = new MCHelper();
-	$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
-	$items = $mcHelper->ListStreamPublisherItems(MultichainParams::VAULT_STREAMS['DATA'], $_SESSION['address'], true, 20 , -20);
+	$dbHelper = new DBHelper();
+	$items = $dbHelper->getRecentVaultItemsForUser($_SESSION['address'], 20);
 	$items = array_reverse($items);
 
 	echo "<table class='table table-bordered table-hover'>";

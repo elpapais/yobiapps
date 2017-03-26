@@ -66,7 +66,7 @@
               </ul>
             </li>
             <li class="dropdown active">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indiacoin <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Yobi-Wallet <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="ic_send_money.php">Send Money</a></li>
                 <li><a href="ic_view_history.php">View History</a></li>

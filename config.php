@@ -3,7 +3,7 @@
 	/**
 	 *  INDIACOIN PARAMETERS
 	 */
-	class IndiacoinParams
+	class AssetParams
 	{
 		const INIT_QTY = 1000;
 		const ASSET_NAME = "yobicoin";

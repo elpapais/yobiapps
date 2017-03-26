@@ -13,23 +13,16 @@
 		{
 			$txId = $_POST['txid'];
 			$uploader_address = $_SESSION['address'];
-			$mcHelper = new MCHelper();
-			$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
+			$dbHelper = new DBHelper(null,null);
 
-			$transaction = $mcHelper->GetAddressTransaction($uploader_address, $txId);
+			$transaction = $dbHelper->getAddressTransaction($uploader_address, $txId);
 			echo "<h3 style='color:#0066cc'><b><u>Transaction Details</u></b></h3>";
 			echo printStreamTransactionBasicDetailsVertically($transaction);
 			echo "<h3 style='color:#0066cc'><b><u>Data</u></b></h3>";
 
 			$vOut_n = -1;
 
-			if (is_string($transaction['data'][0])) {
-				$dataHex = $transaction['data'][0];
-			}
-			else{
-				$vOut_n = $transaction['data'][0]['vout'];
-				$dataHex = $mcHelper->GetTxOutData($txId, $vOut_n);
-			}
+			$dataHex = $dbHelper->getTransactionData($transaction['data'][0]);
 
 			$dataArr = json_decode(hex2bin($dataHex));
 

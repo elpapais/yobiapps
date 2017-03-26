@@ -1,7 +1,7 @@
 <?php
 	include_once('config.php');
 	include_once('resources.php');
-	include_once 'MCHelper.php';
+	include_once 'dbhelper.php';
 
 	function randomNDigitNumber($digits)
 	{
@@ -275,9 +275,8 @@
 			            }
 			            else
 			            {
-			            	$mcHelper = new MCHelper();
-			            	$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
-			                $data = $mcHelper->testGetTxOutData($param_value['txid'], $param_value['vout']);
+			            	$dbHelper = new DBHelper();
+			                $data = $dbHelper->getTransactionMetadata($param_value['txid'], $param_value['vout']);
 			            }
 					}
 				}
@@ -398,9 +397,8 @@
 			            {
 			            	if (count($param_value[0])>0)
 			            	{
-				            	$mcHelper = new MCHelper();
-				            	$mcHelper->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
-				                $data = $mcHelper->testGetTxOutData($param_value['txid'], $param_value['vout']);
+				                $dbHelper = new DBHelper();
+			                	$data = $dbHelper->getTransactionMetadata($param_value['txid'], $param_value['vout']);
 			            	}
 			            	else {
 			            		$data="";

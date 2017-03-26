@@ -19,13 +19,11 @@
 		protected $server;
 		protected $adminAddress;
 
-		public function __construct($sessionId, $server)
+
+		public function __construct($sessionId=null, $server=null)
 		{
 			$this->sessionId = $sessionId;
 			$this->server = $server;
-
-			// $this->mcTemp = new MCHelper();
-			// $this->mcTemp->setUp(MultichainParams::HOST_NAME, MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD);
 
 			$this->mcObj = new MultichainClient("http://".MultichainParams::HOST_NAME.":".MultichainParams::RPC_PORT, MultichainParams::RPC_USER, MultichainParams::RPC_PASSWORD, 30);
 			$this->mcHelper = new MultichainHelper($this->mcObj);
@@ -48,6 +46,88 @@
 
 			throw new Exception("There is no address with admin privileges in your node!");
 		}
+
+
+		/**
+		 *  Get data from the data object of a transaction
+		 */
+		public function getDataFromDataItem($dataItem)
+		{
+			if (is_string($dataItem)) {
+				$dataHex = $dataItem;
+			}
+			else{
+				$vOut_n = $dataItem['vout'];
+				$txId = $dataItem['txid'];
+				$dataHex = $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut_n);
+			}
+
+			return $dataHex;
+		}
+
+
+		/**
+		 *  Get metadata for transaction
+		 */
+		public function getTransactionMetadata($txId, $vOut)
+		{
+
+			return $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut_n);
+		}
+
+
+		/**
+		 *  Get transaction details for an address
+		 */
+		public function getAddressTransaction($address, $txId)
+		{
+			return $this->mcObj->setDebug(true)->getAddressTransaction($address, $txId);
+		}
+
+
+		/**
+		 *  Get list of transactions for an address
+		 */
+		public function listAddressTransactions($address, $count = 100, $skip = 0, $verbose = true)
+		{
+			return $this->mcObj->setDebug(true)->listAddressTransactions($address, $count, $skip, $verbose);
+		}
+
+
+	    /**
+	     * Get Block details.
+	     */
+	    public function getBlockDetails($hash, $format = true)
+	    {
+	        return $this->mcObj->setDebug(true)->getBlock($hash, $format);
+	    }
+
+
+		/**
+		* Gets asset balances for address, by asset reference.
+		*
+		*/
+		public function getAssetBalanceForAddressByAssetName($address, $assetName) {
+			$assetsBalances = $this->mcObj->setDebug(true)->getAddressBalances($address);
+			foreach($assetsBalances as $assetBalance)
+			{
+				if($assetBalance["name"] == $assetName)
+					return $assetBalance["qty"];
+			}
+
+			return 0;
+		}
+
+
+		/**
+		 *  Get recent vault items for user
+		 */
+		public function getRecentVaultItemsForUser($address, $count = 10)
+		{
+			$start = -($count);
+			return $this->mcObj->setDebug(true)->listStreamPublisherItems(MultichainParams::VAULT_STREAMS['DATA'], $address, true, $count, $start, true);
+		}
+
 
 		/**
 		 *  Check if address is valid
@@ -209,11 +289,27 @@
 				
 		}
 
+		/**
+		 *  Uploads the hex format of a document to blockchain 
+		 */
+		public function uploadDocumentToVault($address, $streamKey, $contentHex)
+		{
+			try 
+			{
+				return $this->mcObj->setDebug(true)->publishFrom($address, MultichainParams::VAULT_STREAMS['DATA'], $streamKey, $contentHex);
+				
+			}
+			catch (Exception $e)
+			{
+				return false;
+			}
+		}
+
 
 		/**
-		 *  Sends Indiacoins to user
+		 *  Send Yobicoins to user
 		 */
-		public function sendInitIndiacoins($userName, $qty=IndiacoinParams::INIT_QTY)
+		public function sendInitIndiacoins($userName, $qty=AssetParams::INIT_QTY)
 		{
 			try
 			{
@@ -226,7 +322,7 @@
 						throw new Exception("Invalid Address!!");
 					}
 
-					$txId = $this->mcObj->setDebug(true)->sendFromAddress($this->getAdminAddress(), $address,  array(IndiacoinParams::ASSET_NAME => $qty));
+					$txId = $this->mcObj->setDebug(true)->sendFromAddress($this->getAdminAddress(), $address,  array(AssetParams::ASSET_NAME => $qty));
 				}
 				else
 				{
@@ -239,6 +335,23 @@
 				
 		}
 		
+
+		/**
+		 *  Send asset with message to user 
+		 */
+		public function sendAssetWithMessage($fromAddress, $toAddress, $assetName, $units, $metadata)
+		{
+			try 
+			{
+				return $this->mcObj->setDebug(true)->sendWithMetadataFrom($fromAddress, $toAddress, array($assetName => $units), bin2hex($metadata));
+				
+			}
+			catch (Exception $e)
+			{
+				return false;
+			}
+		}
+
 
 		/**
 		 *  Activate User Account
