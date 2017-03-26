@@ -18,7 +18,7 @@
 </script>
 
 
-<div class="container theme-showcase text-center" role="main">
+<div class="container theme-showcase" role="main">
 
     <h2>Yobi-Wallet</h2>
     <br>
@@ -41,6 +41,8 @@
     </div><br/>
 
     <div class="row">
+        <div class="col-md-1"></div>
+        
         <div class="col-md-10">
             <section class="panel panel-primary">
                 <header class="panel-heading">
@@ -87,7 +89,7 @@
             </section>
         </div>
 
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
         
     </div>
 
