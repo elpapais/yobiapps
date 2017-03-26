@@ -55,7 +55,7 @@
                                 <input id="txtToAddrSWM" type="text" placeholder="" class="form-control" value="" size=50 />
                             </div>
                         </div>
-                        <br/><br/><br/>
+                        <br/>
 
                         <div class="row form-group">
                             <label class="col-sm-3 control-label"><strong>Message </strong></label>
@@ -63,7 +63,7 @@
                                 <textarea id="txtMessageSWM" name="txtMessageSWM" rows="5" class="form-control" placeholder="Description" required></textarea>
                             </div>
                         </div>
-                        <br/><br/><br/>
+                        <br/>
 
                         <div class="row form-group">
                             <label class="col-sm-3 control-label"><strong>Yobicoins </strong></label>
@@ -71,13 +71,13 @@
                                 <input id="txtUnitsSWM" type="number" step="any" placeholder="" class="form-control" value="1" width=30 />
                             </div>
                         </div>
-                        <br/><br/><br/>
+                        <br/>
 
                         <div class="row form-group">
                             <div class="col-sm-9">
                                 <input type="reset" class="mb-xs mt-xs mr-xs btn btn-primary" onclick="sendMetadataToAddress('txtMyAddress', 'txtToAddrSWM', 'txtMessageSWM', 'txtUnitsSWM', this, 'outputSWM');" value="Send">
                             </div>
-                        </div><br/><br/><br/>
+                        </div><br/><br/>
 
                         <div id="outputSWM" class="appear-animation bounceIn appear-animation-visible">
                         </div>
