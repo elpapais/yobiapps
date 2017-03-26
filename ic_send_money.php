@@ -18,7 +18,7 @@
 </script>
 
 
-<div class="container theme-showcase" role="main">
+<div class="container theme-showcase text-center" role="main">
 
     <h2>Yobi-Wallet</h2>
     <br>
