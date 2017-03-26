@@ -24,7 +24,7 @@
     <br>
 
     <div class="row">
-        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
         <div class="col-md-5">
             <div class="row">
                 <label><strong>Your Wallet Address</strong></label>
@@ -37,12 +37,11 @@
         <div class="col-md-4">
             <strong>Balance</strong> - <b><label id="pWalletBalance"></label></b>
         </div>
-        <div class="col-md-1"></div>
     </div><br/>
 
     <div class="row">
         <div class="col-md-1"></div>
-        
+
         <div class="col-md-10">
             <section class="panel panel-primary">
                 <header class="panel-heading">
