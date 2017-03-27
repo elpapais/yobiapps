@@ -71,8 +71,7 @@
 		 */
 		public function getTransactionMetadata($txId, $vOut)
 		{
-
-			return $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut_n);
+			return $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut);
 		}
 
 
