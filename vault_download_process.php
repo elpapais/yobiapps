@@ -22,7 +22,7 @@
 
 			$vOut_n = -1;
 
-			$dataHex = $dbHelper->getTransactionData($transaction['data'][0]);
+			$dataHex = $dbHelper->getDataFromDataItem($transaction['data'][0]);
 
 			$dataArr = json_decode(hex2bin($dataHex));
 

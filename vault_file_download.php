@@ -27,8 +27,6 @@
 				$dataHex = $dbHelper->getDataFromDataItem($transaction['data'][0]);
 			}
 
-
-
 			$dataArr = json_decode(hex2bin($dataHex));
 			$fileContentHex = $dataArr->file_hex;
 

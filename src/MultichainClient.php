@@ -236,6 +236,20 @@ class MultichainClient
     }
 
     /**
+     * Creates a new atomic transaction which can perform multiple operations at the same time. .
+     *
+     * @param $fromAddress
+     * @param $addresses - A json object with addresses as keys and amounts as values
+     * @param $data
+     * @param $action
+     * @return string
+     */
+    public function createRawSendFrom($fromAddress, $addresses, $data, $action)
+    {
+        return $this->jsonRPCClient->execute("createrawsendfrom", array($fromAddress, $addresses, $data, $action));
+    }
+
+    /**
      * Sends a transaction to disable the offer of exchange in hexstring, returning the txid. This is achieved by
      * spending one of the exchange transaction’s inputs and sending it back to the wallet. To check whether this can
      * be used on an exchange transaction, check the candisable field of the output of decoderawexchange.

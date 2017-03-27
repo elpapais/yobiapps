@@ -94,6 +94,15 @@
 		}
 
 
+		/**
+		 *  Get list of transactions for an address
+		 */
+		public function signMessage($signerAddress, $fileHash)
+		{
+			return $this->mcObj->setDebug(true)->signMessage($signerAddress, $fileHash);
+		}
+
+
 	    /**
 	     * Get Block details.
 	     */
@@ -623,6 +632,112 @@
 				throw $e;
 			}
 		}
+		
+
+		/**
+		 *  Get signatures for a contract
+		 *
+		 * @returns Array representing a list of stream items
+		 */
+		public function getContractSignatures($contractID, $count=100)
+		{
+			try
+			{
+				return $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractID, true, $count, -($count), true);
+			}
+			catch (Exception $e)
+			{
+				throw $e;
+			}
+		}
+		
+
+		/**
+		 *  Get contract File stream item
+		 *
+		 * @returns Array representing a list of stream items
+		 */
+		public function getContractFileStreamItem($contractID)
+		{
+			try
+			{
+				$contractFileItems = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_FILES'], $contractID, true, 1, -1);
+
+            	return $contractFileItems[0];
+			}
+			catch (Exception $e)
+			{
+				throw $e;
+			}
+		}
+		
+
+		/**
+		 *  Upload a contract
+		 *
+		 * @return Transaction ID for the transaction
+		 */
+		public function uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash)
+		{
+			try
+			{
+				$contractDetailsArr = array(
+					Literals::CONTRACT_DETAILS_FIELD_NAMES['TITLE'] => $title,
+					Literals::CONTRACT_DETAILS_FIELD_NAMES['DATE_OF_UPLOAD'] => $dateOfUploadStr,
+					Literals::CONTRACT_DETAILS_FIELD_NAMES['DESCRIPTION'] => $desc,
+					Literals::CONTRACT_DETAILS_FIELD_NAMES['FILE_HASH'] => $fileHash
+				);
+
+				$contractDetailsJSON = json_encode($contractDetailsArr);
+				$contractDetailsHex = bin2hex($contractDetailsJSON);		/// Hex encoding the metadata
+
+				$rawTransactionContent = array(
+					array("for"=>MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], "key"=>$contractID, "data"=>$contractDetailsHex),
+					array("for"=>MultichainParams::CONTRACT_STREAMS['CONTRACT_FILES'], "key"=>$contractID, "data"=>$fileContentHex)
+					);
+
+				return $this->mcObj->setDebug(true)->createRawSendFrom($uploaderAddress, (new stdClass()), $rawTransactionContent, "send");
+			}
+			catch (Exception $e)
+			{
+				throw $e;
+			}
+		}
+		
+
+		/**
+		 *  Sign a contract
+		 *
+		 * @return Transaction ID for the transaction
+		 */
+		public function signContract($contractID, $signerID, $signerAddress, $signature)
+		{
+			try
+			{
+				$contractSignaturesStreamKey1 = $contractID;
+				$contractSignaturesStreamKey2 = $contractID.Literals::STREAM_KEY_DELIMITER.$signerAddress;
+
+				$contractSignatureArr = array(
+					Literals::CONTRACT_SIGNATURES_FIELD_NAMES['SIGNER_ID'] => $signerID,
+					Literals::CONTRACT_SIGNATURES_FIELD_NAMES['SIGNER_ADDRESS'] => $signerAddress,
+					Literals::CONTRACT_SIGNATURES_FIELD_NAMES['SIGNATURE'] => $signature,
+					Literals::CONTRACT_SIGNATURES_FIELD_NAMES['TIMESTAMP'] => date('d-M-Y H:i:s')
+				);
+
+				$contractSignatureJSON = json_encode($contractSignatureArr);	/// JSON encoding the array
+				$contractSignatureHex = bin2hex($contractSignatureJSON);		/// Hex encoding the JSON data
+
+				$txId = $this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractSignaturesStreamKey1, $contractSignatureHex);
+
+				$this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractSignaturesStreamKey2, $contractSignatureHex);
+
+				return $txId;
+			}
+			catch (Exception $e)
+			{
+				throw $e;
+			}
+		}
 
 
 		/**
@@ -653,6 +768,9 @@
 
 		/**
 		 * Gets user's Public Key from Blockchain using User Name
+		 *
+		 * @param User ID
+		 * @return Public key of the user
 		 */
 		public function getUserPublicKeyFromUserName($userID)
 		{
