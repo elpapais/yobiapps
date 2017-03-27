@@ -21,7 +21,7 @@
                 </header>
                 <div class="panel-body">
 
-                	<div class="form-group">
+                	<div class="row form-group">
                         <label class="col-sm-3 control-label"><strong>Contract ID </strong></label>
                         <div class="col-sm-9">
                             <input id="contractid" name="contractid" class="form-control" placeholder="Title" required="true">
