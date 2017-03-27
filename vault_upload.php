@@ -24,7 +24,7 @@
                 <div class="panel-body">
                     <form>
 
-                        <div class="form-group">
+                        <div class="row form-group">
                             <label class="col-md-4 control-label" for="filebutton">Date of Upload</label>
                             <div class="col-md-8">
                                 <div class="input-group col-md-6">
@@ -34,39 +34,36 @@
                                     <input class="form-control" type="datetime-local" id="dou" name="dou" value="<?php date_default_timezone_set('Asia/Kolkata'); echo str_replace("/", "T", date('Y-m-d/H:i:s')); ?>" required /> 
                                 </div>
                             </div>
-                        </div>
-                        <br/><br/><br/>
+                        </div><br/>
 
-                        <div class="form-group">
+                        <div class="row form-group">
                             <label class="col-md-4 control-label" for="file">File</label>
                             <div class="col-md-8">
                                 <input id="file" name="filename" class="input-file" type="file" accept="image/*,application/pdf">
                             </div>
-                        </div>
-                        <br/><br/>
+                        </div><br/>
                         
-                        <div class="form-group">
+                        <div class="row form-group">
                             <label class="col-md-4 control-label" for="desc">Description</label>
                             <div class="col-md-8">
                                 <textarea id="desc" name="desc" rows="5" class="form-control" placeholder="Description" required></textarea>
                             </div><br/><br/><br/>
-                        </div>
-                        <br/><br/><br/>
+                        </div><br/>
 
-                        <div class="form-group">
+                        <div class="row form-group">
                             <div class="col-md-4">
                                 <input type="reset" class="mb-xs mt-xs mr-xs btn btn-primary" onclick="uploadFile(dou, file, desc, this, output);" value="Upload">
                             </div>
-                        </div><br/><br/>
+                        </div><br/>
 
                         <div class="row progress light m-md" style="width: 50%" hidden="true">
                             <label id="progressLabel" for="progress"></label>
                             <div id="progress" class="row progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 50px;">
                                 Upload progress
                             </div>
-                        </div>
+                        </div><br/>
 
-                        <div class="form-group">
+                        <div class="row form-group">
                             <div class="col-sm-12 text-left">
                                 <div id="output">
 
