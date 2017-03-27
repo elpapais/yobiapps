@@ -34,7 +34,7 @@ function uploadFile(button, contract_title, date, file, desc, output) {
 		xmlhttp.open("POST", "contract_upload_process.php", true);
 //    	xmlhttp.setRequestHeader("Content-type", "multipart/form-data");
 		var formData = new FormData();
-		debugger
+		// debugger
 		formData.append("upload", "true");
 		formData.append("title", contract_title.value);
 		formData.append("dou", date.value);

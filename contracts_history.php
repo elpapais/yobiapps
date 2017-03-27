@@ -33,7 +33,7 @@
                                 if (count($contractsDetails)>0)
                                 {
 
-                                    echo "<p><table class='table table-bordered table-hover'>";
+                                    echo "<p><div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
                                     echo "<tr><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['title']."</th><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['dou']."</th><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['desc']."</th><th></th><th></th></tr>";
 
                                     foreach ($contractsDetails as $contractDetails)
@@ -54,7 +54,7 @@
                                         echo "</tr>";
                                     }
 
-                                    echo "</table></p>";
+                                    echo "</table></div></p>";
                                 }
                             ?>
 

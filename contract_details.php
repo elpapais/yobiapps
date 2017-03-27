@@ -22,7 +22,7 @@
 
             $dataArr = $dbHelper->getContractDetails($contractID);
 
-            echo "<p class=''><table class='table table-bordered table-hover'>";
+            echo "<p><div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 
             echo "<tr><th style='border-style: ridge'>"."Contract ID"."</th><td style='border-style: ridge;'>".$contractID."</td></tr>";
 
@@ -61,7 +61,7 @@
             }
 
             echo "</tr>";
-            echo "</table></p>";
+            echo "</table></div></p>";
 
     /// ----------------------------------------------------------------- ///
 

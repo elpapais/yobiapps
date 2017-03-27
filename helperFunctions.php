@@ -214,7 +214,7 @@
 	function printTransactionBasicDetailsVertically($transaction, $userAddress, $assetRef="")
 	{
 		
-		$printDetails = "<div class='table-responsive'><br/><table class='table'>";
+		$printDetails = "<div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 
 		foreach($transaction as $param_name=>$param_value)
 			{		
@@ -296,7 +296,7 @@
 		$printDetails .= "<tr><th>Block Index</th><td>".$blockIndex."</td></tr>";
 		$printDetails .= "<tr><th>Time</th><td>".date('m-d-Y'.',  '.'h:i:s a', $time)."</td></tr>";
 		
-		$printDetails .= "</table><br/></div>";
+		$printDetails .= "</table></div>";
 		return $printDetails;
 	}
 
@@ -313,7 +313,7 @@
 		$data = "";
 		$transferred = 2;
 		$amount = 0;
-		$printDetails = "<div class='table-responsive'><br/><table class='table table-bordered table-hover'>";
+		$printDetails = "<div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 		$printDetails .= "<tr>";
 		$printDetails .= "<th>S.No.</th>";
 		$printDetails .= "<th>Sender</th>";
@@ -435,7 +435,7 @@
 			$printDetails .= "</tr>";
 		}
 			
-		$printDetails .= "</table><br/></div>";
+		$printDetails .= "</table></div>";
 		return $printDetails;
 	}
 
@@ -447,7 +447,7 @@
 	{
 		//global $explorer_tx_url,$explorer_address_url,$explorer_block_url;
 	
-		$printDetails = "<div><br/><table class='table table-bordered table-hover'>";
+		$printDetails = "<div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 
 		foreach($transaction as $param_name=>$param_value)
 		{		
@@ -495,7 +495,7 @@
 		$printDetails .= "<tr height=25><th width=150 style='border-style: ridge;'>Confirmations</th><td align='left' style='border-style: ridge;'>".$confirmations."</td></tr>";
 
 		// $printDetails .= (is_string($data[0])) ? "<tr height=25><th width=150 style='border-style: ridge;'>Data</th><td align='left' style='border-style: ridge;'>".json_encode(json_decode(hex2bin($data[0])), JSON_PRETTY_PRINT)."</td></tr>" : "";
-		$printDetails .= "</table><br/></div>";
+		$printDetails .= "</table></div>";
 		return $printDetails;
 	}
 

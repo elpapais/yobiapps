@@ -26,7 +26,7 @@
 
 			$dataArr = json_decode(hex2bin($dataHex));
 
-			echo "<p><table class='table table-bordered table-hover'>";
+			echo "<p><div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 
 			foreach ($dataArr as $key => $value) {
 
@@ -45,7 +45,7 @@
 			$downloadLinkHTML .= "' class='btn blue'>Click here</a>";
 
 			echo "<tr><th style='border-style: ridge;'>"."Download Link"."</th><td style='border-style: ridge;'>".$downloadLinkHTML."</td></tr>";
-			echo "</table></p>";
+			echo "</table></div></p>";
 
 		}
 		else
