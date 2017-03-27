@@ -3,7 +3,6 @@
     ob_start();
     require_once('check-login.php');
 	include_once 'header-logged-in.php';
-    //include_once 'top.php';
 ?>
 
 <script type="text/javascript" src="js/contract.js"></script>
