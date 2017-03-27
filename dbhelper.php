@@ -688,15 +688,20 @@
 					Literals::CONTRACT_DETAILS_FIELD_NAMES['FILE_HASH'] => $fileHash
 				);
 
-				$contractDetailsJSON = json_encode($contractDetailsArr);
-				$contractDetailsHex = bin2hex($contractDetailsJSON);		/// Hex encoding the metadata
+				$contractDetailsHex = bin2hex(json_encode($contractDetailsArr));		/// Hex encoding the metadata
 
-				$rawTransactionContent = array(
+				/*$rawTransactionContent = array(
 					array("for"=>MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], "key"=>$contractID, "data"=>$contractDetailsHex),
 					array("for"=>MultichainParams::CONTRACT_STREAMS['CONTRACT_FILES'], "key"=>$contractID, "data"=>$fileContentHex)
-					);
+					);*/
 
-				return $this->mcObj->setDebug(true)->createRawSendFrom($uploaderAddress, (new stdClass()), $rawTransactionContent, "send");
+
+				$mcTest->testPublishFrom($uploader_address, MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $contractID, $contractDetailsHex);	/// Publisher address and stream name to be modified
+				$mcTest->testPublishFrom($uploader_address, MultichainParams::CONTRACT_STREAMS['CONTRACT_FILES'], $contractID, $fileContentHex);
+
+				// $this->mcObj->setDebug(true)->createRawSendFrom($uploaderAddress, (new stdClass()), $rawTransactionContent, "send");
+
+				return true;
 			}
 			catch (Exception $e)
 			{

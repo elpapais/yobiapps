@@ -37,12 +37,17 @@
 
 		$dbHelper = new DBHelper();		
 		$contractID = generateGUID();
-		$txID = $dbHelper->uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash, $fileContentHex);
-		$signature = $dbHelper->signMessage($uploaderAddress, $fileHash);
-		$txIDSign = $dbHelper->signContract($contractID, $uploaderID, $uploaderAddress, $signature);
 
+		if($dbHelper->uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash, $fileContentHex))
+		{
+			$signature = $dbHelper->signMessage($uploaderAddress, $fileHash);
+			$txIDSign = $dbHelper->signContract($contractID, $uploaderID, $uploaderAddress, $signature);
 
-		echo "<b><font color='green'>Transaction Successful.<br/>"."Your Contract ID is </font></b>"."<a target='_new' href='contract_upload_details.php?contractid=".$contractID."'>".$contractID."</a>";
+			echo "<b><font color='green'>Transaction Successful.<br/>"."Your Contract ID is </font></b>"."<a target='_new' href='contract_upload_details.php?contractid=".$contractID."'>".$contractID."</a>";
+		}
+		else {
+			throw new Exception("Contract upload failed", 1);
+		}
 	}
 	catch (exception $ex)
 	{
