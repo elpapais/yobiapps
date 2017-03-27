@@ -37,7 +37,7 @@
 
 		$dbHelper = new DBHelper();		
 		$contractID = generateGUID();
-		$txID = $dbHelper->uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash);
+		$txID = $dbHelper->uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash, $fileContentHex);
 		$signature = $dbHelper->signMessage($uploaderAddress, $fileHash);
 		$txIDSign = $dbHelper->signContract($contractID, $uploaderID, $uploaderAddress, $signature);
 

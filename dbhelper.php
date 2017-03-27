@@ -677,7 +677,7 @@
 		 *
 		 * @return Transaction ID for the transaction
 		 */
-		public function uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash)
+		public function uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash, $fileContentHex)
 		{
 			try
 			{
