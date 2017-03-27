@@ -25,8 +25,6 @@
                         <div class="row appear-animation fadeIn appear-animation-visible">
                             <div id="output" class="col-md-12">
                                 <?php
-
-                                    require_once('MultichainClientTest.php');
                                     require_once('resources.php');
                                     require_once('config.php');
                                     require_once('dbhelper.php');

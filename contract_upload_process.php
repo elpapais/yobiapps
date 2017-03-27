@@ -4,7 +4,6 @@
     require_once('check-login.php');
 	include_once "config.php";
 	include_once "resources.php";
-	include_once "MultichainClientTest.php";
 	include_once "helperFunctions.php";
 
 	try
