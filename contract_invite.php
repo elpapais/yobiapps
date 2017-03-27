@@ -22,7 +22,7 @@
                 <div class="panel-body">
                     <form>
 
-                    	<div class="form-group">
+                    	<div class="row form-group">
                             <label class="col-sm-3 control-label"><strong>Contract ID </strong></label>
                             <div class="col-sm-9">
                                 <input id="contractid" name="contractid" class="form-control" placeholder="Contract ID" value="<?php echo (isset($_GET['contractid'])) ? $_GET['contractid'] : "" ?>" required="true">
@@ -30,7 +30,7 @@
                         </div>
                         <br/>
 
-                        <div class="form-group">
+                        <div class="row form-group">
                             <label class="col-sm-3 control-label"><strong>Enter usernames (seperated by commas)</strong></label>
                             <div class="col-sm-9">
                                 <textarea id="invitees" name="invitees" rows="5" class="form-control" placeholder="Enter usernames (seperated by commas)" required></textarea>
