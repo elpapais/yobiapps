@@ -79,9 +79,9 @@
                             </div>
                         </div><br/>
 
-                        <div class="progress light m-md" style="width: 25%" hidden="true">
+                        <div class="row progress light m-md" style="width: 25%" hidden="true">
                             <label id="progressLabel" for="progress"></label>
-                            <div id="progress" class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div id="progress" class="row progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                                 Upload progress
                             </div>
                         </div>

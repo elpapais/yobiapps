@@ -35,9 +35,9 @@
                         </div>
                     </div><br/>
 
-                    <div class="progress light m-md" style="width: 100px" hidden="true">
+                    <div class="row progress light m-md" style="width: 100px" hidden="true">
                         <label id="progressLabel" for="progress"></label>
-                        <div id="progress" class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" hidden="true" style="width: 100px;">
+                        <div id="progress" class="row progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" hidden="true" style="width: 100px;">
                             
                         </div>
                     </div>
