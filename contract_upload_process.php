@@ -4,6 +4,7 @@
     require_once('check-login.php');
 	include_once "config.php";
 	include_once "resources.php";
+	include_once "dbhelper.php";
 	include_once "helperFunctions.php";
 
 	try
@@ -34,6 +35,7 @@
 		$fileHash = hash_file('sha256', $target_file);
 		unlink($target_file);
 
+		$dbHelper = new DBHelper();		
 		$contractID = generateGUID();
 		$txID = $dbHelper->uploadContract($contractID, $uploaderAddress, $title, $dateOfUploadStr, $desc, $fileHash);
 		$signature = $dbHelper->signMessage($uploaderAddress, $fileHash);
