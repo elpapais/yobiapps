@@ -32,7 +32,6 @@
                     <div class="row">
                         <div class="col-sm-12 text-left">
                             <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary" onclick="getContractDetails(this, contractid, output); return false;">View</button>
-                            <!-- <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button> -->
                         </div>
                     </div><br/>
 

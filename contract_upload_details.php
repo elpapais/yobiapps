@@ -6,7 +6,7 @@
 ?>
                         
 
-<!-- <script type="text/javascript" src="js/contract.js"></script> -->
+<script type="text/javascript" src="js/contract.js"></script>
 
 <section role="main" class="content-body">
 
@@ -20,7 +20,6 @@
                     <h2 class="panel-title">Contract Details</h2>
                 </header>
                 <div class="panel-body">
-                    <!-- <form action="verify-login.php" method="post"> -->
 
                         <div class="row appear-animation fadeIn appear-animation-visible">
                             <div id="output" class="col-md-12">
@@ -142,7 +141,6 @@
                             </div>
                         </div>
 
-                    <!-- </form> -->
                 </div>
             </section>
         </div>

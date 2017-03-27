@@ -37,7 +37,6 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
-                                    <!-- <input type="text" data-plugin-datepicker class="form-control"> -->
                                     <input class="form-control" type="datetime-local" id="dou" name="dou" value="<?php date_default_timezone_set('Asia/Kolkata'); echo str_replace("/", "T", date('Y-m-d/H:i:s')); ?>" required /> 
                                 </div>
                             </div>
@@ -59,7 +58,6 @@
                                                 <span class="fileupload-new">&nbsp;</span>
                                                 <input id="file" type="file" name="filename" accept="image/*,application/pdf" />
                                             </span>
-                                            <!-- <a class="btn btn-warning fileupload-exists" data-dismiss="fileupload">Remove</a> -->
                                         </div>
                                     </div>
                                 </div>
