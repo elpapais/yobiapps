@@ -269,6 +269,41 @@
 		/**
 		 *  Grants permissions to user
 		 */
+		public function hasPermissions($userName ,$permissions)
+		{
+			try
+			{
+				if ($this->userExists($userName))
+				{
+					$address = $this->getUserAddress($userName);
+
+					$permissionsInfo = $this->mcObj->setDebug(true)->listPermissions($permissions, $address);
+					
+					if (count($permissionsInfo) > 0)
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+
+				}
+				else
+				{
+					throw new Exception("Invalid user name", 1);				
+				}
+			}
+			catch (Exception $e) {
+				throw $e;
+			}
+				
+		}
+
+
+		/**
+		 *  Grants permissions to user
+		 */
 		public function grantPermissions($userName ,$permissions)
 		{
 			try
@@ -453,9 +488,9 @@
 		
 
 		/**
-		 *  Contracts pending signature from user
+		 *  Contracts created by the user
 		 */
-		public function getContractsHistoryForUser($userID)
+		public function getContractsCreatedByUser($userID)
 		{
 			
 			try
@@ -468,16 +503,7 @@
 				foreach ($contractDetailsStreamItems as $contractDetailsStreamItem)
 				{
 					$contractID = $contractDetailsStreamItem['key'];
-
-					if (is_string($contractDetailsStreamItem['data'])) {
-						$dataHex = $contractDetailsStreamItem['data'];
-					}
-					else {
-						$vOut = $contractDetailsStreamItem['vout'];
-						$txId = $contractDetailsStreamItem['txid'];
-						$dataHex = $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut);
-					}
-
+					$dataHex = $this->getDataFromDataItem($contractDetailsStreamItem['data']);
 					$contractDetailsStreamItemDataArr = json_decode(hex2bin($dataHex), true);
 
 					array_push($contractsDetails, array_merge(array(Literals::CONTRACT_DETAILS_FIELD_NAMES['CONTRACT_ID']=>$contractID),$contractDetailsStreamItemDataArr));
@@ -494,11 +520,42 @@
 		
 
 		/**
+		 *  Contracts created by the user
+		 */
+		public function getContractsSignedByUser($userID)
+		{
+			
+			try
+			{
+				$userAddress = $this->getUserAddress($userID);
+				$contractsDetails = array();
+
+				$contractsSignedStreamItems = $this->mcObj->setDebug(true)->listStreamPublisherItems(MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED'], $userAddress, true, 500, -500, true);
+
+				foreach ($contractsSignedStreamItems as $contractsSignedStreamItem)
+				{
+					$dataHex = $this->getDataFromDataItem($contractsSignedStreamItem['data']);
+					$contractsSignedStreamItemDataArr = json_decode(hex2bin($dataHex), true);
+					$contractID = $contractsSignedStreamItemDataArr[Literals::CONTRACTS_SIGNED_FIELD_NAMES['CONTRACT_ID']];
+					$contractDetails = $this->getContractDetails($contractID);
+					array_push($contractsDetails, $contractDetails);
+				}
+
+				$contractsDetails = array_reverse($contractsDetails);
+				return $contractsDetails;
+			}
+			catch (Exception $e)
+			{
+				return false;
+			}
+		}
+		
+
+		/**
 		 *  Contracts pending signature from user
 		 */
 		public function getContractsPendingSignature($userAddress)
-		{
-			
+		{			
 			try
 			{
 				//$userAddress = $this->getUserAddress($userID);
@@ -508,16 +565,7 @@
 
 				foreach ($invitedContractsStreamItems as $invitedContractsStreamItem)
 				{
-
-					if (is_string($invitedContractsStreamItem['data'])) {
-						$dataHex = $invitedContractsStreamItem['data'];
-					}
-					else {
-						$vOut = $invitedContractsStreamItem['vout'];
-						$txId = $invitedContractsStreamItem['txid'];
-						$dataHex = $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut);
-					}
-
+					$dataHex = $this->getDataFromDataItem($invitedContractsStreamItem['data']);
 					$invitedContractsStreamItemDataArr = json_decode(hex2bin($dataHex), true);
 					$contractID = $invitedContractsStreamItemDataArr[Literals::CONTRACT_INVITED_SIGNEES_FIELD_NAMES['CONTRACT_ID']];
 
@@ -612,18 +660,8 @@
 				$contracts = $this->mcObj->setDebug(true)->listStreamKeyItems(MultichainParams::CONTRACT_STREAMS['CONTRACT_DETAILS'], $contractID, true, 1, -1, true);
 
 				$contract = $contracts[0];
-
-				if (is_string($contract['data'])) {
-					$dataHex = $contract['data'];
-				}
-				else {
-					$vOut = $contract['vout'];
-					$txId = $contract['txid'];
-					$dataHex = $this->mcObj->setDebug(true)->getTxOutData($txId, $vOut);
-				}
-
+				$dataHex = $this->getDataFromDataItem($contract['data']);
 				$contractDetails = json_decode(hex2bin($dataHex), true);
-
 				return $contractDetails;
 			}
 			catch (Exception $e)
@@ -720,6 +758,7 @@
 			{
 				$contractSignaturesStreamKey1 = $contractID;
 				$contractSignaturesStreamKey2 = $contractID.Literals::STREAM_KEY_DELIMITER.$signerAddress;
+				$contractSignedStreamKey = $signerAddress;
 
 				$contractSignatureArr = array(
 					Literals::CONTRACT_SIGNATURES_FIELD_NAMES['SIGNER_ID'] => $signerID,
@@ -734,6 +773,8 @@
 				$txId = $this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractSignaturesStreamKey1, $contractSignatureHex);
 
 				$this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractSignaturesStreamKey2, $contractSignatureHex);
+
+				$this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractSignedStreamKey, array(Literals::CONTRACTS_SIGNED_FIELD_NAMES['CONTRACT_ID'] => $contractID));
 
 				return $txId;
 			}

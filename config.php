@@ -72,6 +72,7 @@
 				"CONTRACT_DETAILS" => "contract_details",
 				"CONTRACT_FILES" => "contract_files",
 				"CONTRACT_SIGNATURES" => "contract_signatures",
+				"CONTRACTS_SIGNED" => "contracts_signed",
 				"CONTRACT_INVITED_SIGNEES" => "contract_invited_signees"
 			);
 

@@ -33,6 +33,11 @@
 		if ($dbHelper->hasSignedTheContract($_SESSION['address'], $contractID)) {
 			throw new Exception("You have already signed this contract");
 		}
+		
+		// To grant permissions to the users created before contracts_signed stream was created.
+		if (!$dbHelper->hasPermission(MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write", $signerID)) {
+			$dbHelper->grantPermissions($userName, MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write");
+		}
 
 		$contractDetails = $dbHelper->getContractDetails($contractID);
 

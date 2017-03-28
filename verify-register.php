@@ -48,6 +48,8 @@
 			$dbHelper->grantPermissions($userName, $permissions);
 			$permissions = MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES']."."."write";
 			$dbHelper->grantPermissions($userName, $permissions);
+			$permissions = MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write";
+			$dbHelper->grantPermissions($userName, $permissions);
 			$permissions = MultichainParams::CONTRACT_STREAMS['CONTRACT_INVITED_SIGNEES']."."."write";
 			$dbHelper->grantPermissions($userName, $permissions);
 			

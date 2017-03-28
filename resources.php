@@ -58,6 +58,7 @@
 			);
 
 		const CONTRACT_SIGNATURES_FIELD_NAMES = array(
+				"CONTRACT_ID" => "contract_id",
 				"SIGNER_ID" => "signer_id",
 				"SIGNER_ADDRESS" => "signer_addr",
 				"SIGNATURE" => "sign",
@@ -65,10 +66,19 @@
 			);
 
 		const CONTRACT_SIGNATURES_FIELD_DESC = array(
+				"contract_id" => "Contract ID",
 				"signer_id" => "Signer ID",
 				"signer_addr" => "Signer's address",
 				"sign" => "Signature",
 				"timestamp" => "Timestamp"
+			);
+
+		const CONTRACTS_SIGNED_FIELD_NAMES = array(
+				"CONTRACT_ID" => "contract_id"
+			);
+
+		const CONTRACTS_SIGNED_FIELD_DESC = array(
+				"contract_id" => "Contract ID"
 			);
 
 		const VAULT_FIELDS_CODES = array(
