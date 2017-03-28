@@ -505,7 +505,6 @@
 					$contractID = $contractDetailsStreamItem['key'];
 					$dataHex = $this->getDataFromDataItem($contractDetailsStreamItem['data']);
 					$contractDetailsStreamItemDataArr = json_decode(hex2bin($dataHex), true);
-
 					array_push($contractsDetails, array_merge(array(Literals::CONTRACT_DETAILS_FIELD_NAMES['CONTRACT_ID']=>$contractID),$contractDetailsStreamItemDataArr));
 				}
 
@@ -538,7 +537,7 @@
 					$contractsSignedStreamItemDataArr = json_decode(hex2bin($dataHex), true);
 					$contractID = $contractsSignedStreamItemDataArr[Literals::CONTRACTS_SIGNED_FIELD_NAMES['CONTRACT_ID']];
 					$contractDetails = $this->getContractDetails($contractID);
-					array_push($contractsDetails, $contractDetails);
+					array_push($contractsDetails, array_merge(array(Literals::CONTRACT_DETAILS_FIELD_NAMES['CONTRACT_ID']=>$contractID),$contractDetails));
 				}
 
 				$contractsDetails = array_reverse($contractsDetails);
