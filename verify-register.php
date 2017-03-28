@@ -55,7 +55,8 @@
 			// Sending Yobicoin to user
 			$dbHelper->sendInitYobicoins($userName);
 
-			echo "<p class='lead'><b><font color='blue'>Account registration successful. Please login to continue.</font></b></p>";
+			header("location:login.php?msg=7");
+			// echo "<p class='lead'><b><font color='blue'>Account registration successful. Please login to continue.</font></b></p>";
 		}
 		else if(!isset($_POST['username']))
 		{

@@ -27,6 +27,7 @@
                                 if ($_GET['msg'] == '4') { echo "<div class='alert alert-danger'><strong>Your account is inactive/expired !!</strong>.</div>";}
                                 if ($_GET['msg'] == '5') { echo "<div class='alert alert-info'><strong>Logged out successfully</strong>.</div>";}
                                 if ($_GET['msg'] == '6') { echo "<div class='alert alert-success'><strong>Your user account has been activated successfully.</strong></div>";}
+                                if ($_GET['msg'] == '7') { echo "<div class='alert alert-success'><strong>Your user account has been registered successfully. Please login to continue.</strong></div>";}
 
                             }
                         ?>
