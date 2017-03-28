@@ -419,7 +419,7 @@
 
 			$printDetails .= "<tr>";
 			$printDetails .= "<td>".($txIndex + 1)."</td>";
-			$printDetails .= "<td>".($txId + 1)."</td>";
+			$printDetails .= "<td>".$txId."</td>";
 			$printDetails .= "<td>".(($senderAddress==$userAddress) ? "You" : $senderAddress)."</td>";
 			$printDetails .= "<td>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
 			$printDetails .= "<td>".abs(floatval($amount))."</td>";
