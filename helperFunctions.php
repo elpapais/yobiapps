@@ -417,7 +417,7 @@
 			}
 
 			$printDetails .= "<tr>";
-			$printDetails .= "<td>".date('d-m-Y'.', '.'h:i:s a', $time)."</td>";
+			$printDetails .= "<td><span>".date('d-m-Y'.', '.'h:i:s a', $time)."</span></td>";
 			$printDetails .= "<td>".(($senderAddress==$userAddress) ? "You" : $senderAddress)."</td>";
 			$printDetails .= "<td>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
 			$printDetails .= "<td>".abs(floatval($amount))."</td>";
