@@ -63,7 +63,7 @@
 
                                     echo "<p><h3 style='color:green'>Contracts signed by you:</h3>";
                                     echo "<div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
-                                    echo "<tr><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['title']."</th><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['dou']."</th><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['desc']."</th><th></th><th></th></tr>";
+                                    echo "<tr><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['title']."</th><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['dou']."</th><th>".Literals::CONTRACT_DETAILS_FIELD_DESC['desc']."</th><th></th></tr>";
 
                                     foreach ($signedContractsDetails as $contractDetails)
                                     {
