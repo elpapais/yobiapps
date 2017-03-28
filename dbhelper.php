@@ -757,7 +757,7 @@
 			try
 			{
 				// To grant permissions to the users created before contracts_signed stream was created.
-				if (!$this->hasPermission(MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write", $signerID)) {
+				if (!$this->hasPermissions(MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write", $signerID)) {
 					$this->grantPermissions($signerID, MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write");
 				}
 
