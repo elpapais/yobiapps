@@ -315,8 +315,7 @@
 		$printDetails = "<div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 		$printDetails .= "<tr>";
 		$printDetails .= "<th>Time</th>";
-		$printDetails .= "<th>Sender</th>";
-		$printDetails .= "<th>Recipient</th>";
+		$printDetails .= "<th>Sender / Recipient</th>";
 		$printDetails .= "<th>Amount<br/>(in Yobicoins)</th>";
 		$printDetails .= "<th>Message</th>";
 		$printDetails .= "<th>Confirmations</th>";
@@ -417,9 +416,9 @@
 			}
 
 			$printDetails .= "<tr>";
-			$printDetails .= "<td><span style='display: inline-block; white-space: normal'>".date('d-m-Y'.', '.'h:i:s a', $time)."</span></td>";
-			$printDetails .= "<td>".(($senderAddress==$userAddress) ? "You" : $senderAddress)."</td>";
-			$printDetails .= "<td>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
+			$printDetails .= "<td style='white-space:nowrap'>".date('d-m-Y'.', '.'h:i:s a', $time)."</td>";
+			$printDetails .= "<td>"."Sender:<br>".(($senderAddress==$userAddress) ? "You" : $senderAddress)."<br><br>";
+			$printDetails .= "Recipient:<br>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
 			$printDetails .= "<td>".abs(floatval($amount))."</td>";
 			$printDetails .= "<td>".(hex2bin($data)=="" ? "-" : hex2bin($data))."</td>";
 			$printDetails .= "<td>".$confirmations."</td>";
