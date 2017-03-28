@@ -308,14 +308,14 @@
 	{
 		date_default_timezone_set("Asia/Kolkata");
 
-		$senderAddress = "";
-		$recipientAddress = "";
-		$data = "";
-		$transferred = 2;
-		$amount = 0;
+		// $senderAddress = "";
+		// $recipientAddress = "";
+		// $data = "";
+		// $amount = 0;
 		$printDetails = "<div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 		$printDetails .= "<tr>";
 		$printDetails .= "<th>S.No.</th>";
+		$printDetails .= "<th>Transaction ID</th>";
 		$printDetails .= "<th>Sender</th>";
 		$printDetails .= "<th>Recipient</th>";
 		$printDetails .= "<th>Amount<br/>(in Yobicoins)</th>";
@@ -416,16 +416,10 @@
 				}
 
 			}
-			/*
-			$sender = getUserNameFromAddress($senderAddress);
-			$sender = ($sender=="") ? "Private Address" : $sender;
-
-			$recipient = getUserNameFromAddress($recipientAddress);
-			$recipient = ($recipient=="") ? "Private Address" : $recipient;
-			*/
 
 			$printDetails .= "<tr>";
 			$printDetails .= "<td>".($txIndex + 1)."</td>";
+			$printDetails .= "<td>".($txId + 1)."</td>";
 			$printDetails .= "<td>".(($senderAddress==$userAddress) ? "You" : $senderAddress)."</td>";
 			$printDetails .= "<td>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
 			$printDetails .= "<td>".abs(floatval($amount))."</td>";

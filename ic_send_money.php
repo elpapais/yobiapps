@@ -25,7 +25,7 @@
 
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="row">
                 <label><strong>Your Wallet Address</strong></label>
             </div>
@@ -34,7 +34,16 @@
             </div>
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-4">
+        <div class="col-md-2">
+            <div class="row">
+                <label><strong>Your User name</strong></label>
+            </div>
+            <div class="row">
+                <input id="txtMyUserName" type="text" class="form-control" size=45 value="<?php echo $_SESSION['user_name'] ?>" readonly="readonly" />
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
             <strong>Balance</strong> - <b><label id="pWalletBalance"></label></b>
         </div>
     </div><br/>
@@ -53,7 +62,7 @@
                         <div class="row form-group">
                             <label class="col-sm-3 control-label"><strong>Send to </strong></label>
                             <div class="col-sm-9">
-                                <input id="txtToAddrSWM" type="text" placeholder="" class="form-control" value="" size=50 />
+                                <input id="txtToAddrSWM" type="text" placeholder="Enter recipient's address or user name" class="form-control" value="" size=50 />
                             </div>
                         </div>
                         <br/>
@@ -61,7 +70,7 @@
                         <div class="row form-group">
                             <label class="col-sm-3 control-label"><strong>Message </strong></label>
                             <div class="col-sm-9">
-                                <textarea id="txtMessageSWM" name="txtMessageSWM" rows="5" class="form-control" placeholder="Description" required></textarea>
+                                <textarea id="txtMessageSWM" name="txtMessageSWM" rows="5" class="form-control" placeholder="Send a message" required></textarea>
                             </div>
                         </div>
                         <br/>
