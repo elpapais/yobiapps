@@ -84,7 +84,6 @@
                                     }
 
                                     echo "</table></div></p>";
-                                    print_r(json_encode($signedContractsDetails, JSON_PRETTY_PRINT));
                                 }
                             ?>
 
