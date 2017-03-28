@@ -417,8 +417,8 @@
 
 			$printDetails .= "<tr>";
 			$printDetails .= "<td style='white-space:nowrap'>".date('d-m-Y'.', '.'h:i:s a', $time)."</td>";
-			$printDetails .= "<td>"."Sender:<br>".(($senderAddress==$userAddress) ? "You" : $senderAddress)."<br><br>";
-			$printDetails .= "Recipient:<br>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
+			$printDetails .= "<td>"."<b><i>Sender:</i></b><br>".(($senderAddress==$userAddress) ? "You" : $senderAddress)."<br><br>";
+			$printDetails .= "<b><i>Recipient:</i></b><br>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
 			$printDetails .= "<td>".abs(floatval($amount))."</td>";
 			$printDetails .= "<td>".(hex2bin($data)=="" ? "-" : hex2bin($data))."</td>";
 			$printDetails .= "<td>".$confirmations."</td>";
