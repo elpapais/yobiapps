@@ -774,7 +774,7 @@
 
 				$this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractSignaturesStreamKey2, $contractSignatureHex);
 
-				$this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACT_SIGNATURES'], $contractSignedStreamKey, array(Literals::CONTRACTS_SIGNED_FIELD_NAMES['CONTRACT_ID'] => $contractID));
+				$this->mcObj->setDebug(true)->publishFrom($signerAddress, MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED'], $contractSignedStreamKey, bin2hex(json_encode(array(Literals::CONTRACTS_SIGNED_FIELD_NAMES['CONTRACT_ID'] => $contractID))));
 
 				return $txId;
 			}
