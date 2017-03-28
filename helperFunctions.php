@@ -308,17 +308,12 @@
 	{
 		date_default_timezone_set("Asia/Kolkata");
 
-		// $senderAddress = "";
-		// $recipientAddress = "";
-		// $data = "";
-		// $amount = 0;
 		$printDetails = "<div class='table-responsive scrollable has-scrollbar scrollable-content ' data-plugin-scrollable><table class='table table-bordered table-hover table-condensed mb-none'>";
 		$printDetails .= "<tr>";
 		$printDetails .= "<th>Time</th>";
 		$printDetails .= "<th>Sender / Recipient</th>";
 		$printDetails .= "<th>Amount<br/>(in Yobicoins)</th>";
 		$printDetails .= "<th>Message</th>";
-		$printDetails .= "<th>Confirmations</th>";
 		$printDetails .= "<th></th>";
 		$printDetails .= "</tr>";
 
@@ -421,7 +416,6 @@
 			$printDetails .= "<b><i>Recipient:</i></b><br>".(($recipientAddress==$userAddress) ? "You" : $recipientAddress)."</td>";
 			$printDetails .= "<td>".abs(floatval($amount))."</td>";
 			$printDetails .= "<td>".(hex2bin($data)=="" ? "-" : hex2bin($data))."</td>";
-			$printDetails .= "<td>".$confirmations."</td>";
 			$printDetails .= "<td>"."<a class='mb-xs mt-xs mr-xs btn btn-primary' href='".ExplorerParams::$TX_URL_PREFIX.$txId."' target='_blank'>More details</a>"."</td>";
 			$printDetails .= "</tr>";
 		}
