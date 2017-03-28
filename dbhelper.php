@@ -756,6 +756,11 @@
 		{
 			try
 			{
+				// To grant permissions to the users created before contracts_signed stream was created.
+				if (!$this->hasPermission(MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write", $signerID)) {
+					$this->grantPermissions($signerID, MultichainParams::CONTRACT_STREAMS['CONTRACTS_SIGNED']."."."write");
+				}
+
 				$contractSignaturesStreamKey1 = $contractID;
 				$contractSignaturesStreamKey2 = $contractID.Literals::STREAM_KEY_DELIMITER.$signerAddress;
 				$contractSignedStreamKey = $signerAddress;
