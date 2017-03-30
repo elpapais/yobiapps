@@ -1,7 +1,7 @@
 <?php
 
 	/**
-	 *  INDIACOIN PARAMETERS
+	 *  YOBICOIN PARAMETERS
 	 */
 	class AssetParams
 	{
