@@ -5,7 +5,7 @@
 	include_once 'header-logged-in.php';
 ?>
 
-<script src="js/indiacoin.js" type="text/javascript"></script>
+<script src="js/yobicoin.js" type="text/javascript"></script>
 
 <script>
 
